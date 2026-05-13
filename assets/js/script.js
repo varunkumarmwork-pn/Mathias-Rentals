@@ -124,7 +124,8 @@ function renderProperties(filter = 'all') {
 
     grid.innerHTML = filtered.map(prop => `
         <div class="property-card">
-            <div class="property-image" style="background-image: url('${prop.image}'); background-size: cover; background-position: center;"></div>
+            <img src="${prop.image}" class="property-image" alt="${prop.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="property-image-placeholder" style="display:none; width:100%; height:300px; background:#eee; display:flex; align-items:center; justify-content:center;">Image Not Found</div>
             <div class="property-info">
                 <span class="property-status ${prop.status === 'available' ? 'status-available' : 'status-coming'}">
                     ${prop.status === 'available' ? 'Available' : 'Coming Soon'}
@@ -168,10 +169,8 @@ function renderGallery(filter = 'all') {
 
     grid.innerHTML = filtered.map((item, idx) => {
         return `
-            <div style="
-                background-image: url('${item.image}');
-                background-size: cover;
-                background-position: center;
+            <div class="gallery-item" style="
+                position: relative;
                 height: 300px;
                 border-radius: 12px;
                 overflow: hidden;
@@ -180,7 +179,8 @@ function renderGallery(filter = 'all') {
             "
             onmouseover="this.style.transform='scale(1.02)'"
             onmouseout="this.style.transform='scale(1)'">
-                <div style="padding: var(--space-lg); color: white; height: 100%; display: flex; align-items: flex-end; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);">
+                <img src="${item.image}" alt="${item.title}" style="width:100%; height:100%; object-fit:cover;">
+                <div style="position: absolute; inset: 0; padding: var(--space-lg); color: white; display: flex; align-items: flex-end; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);">
                     <h3 style="margin: 0;">${item.title}</h3>
                 </div>
             </div>
@@ -202,14 +202,24 @@ let chatbotState = {
 function toggleChatbot() {
     const box = document.getElementById('chatbotBox');
     if (!box) return;
-    box.classList.toggle('visible');
+    
     if (box.classList.contains('visible')) {
+        box.classList.remove('visible');
+    } else {
+        box.classList.add('visible');
         if (!chatbotState.stage) {
             initializeChatbot();
         }
-        const input = document.getElementById('chatbot-message-input');
-        if (input) input.focus();
+        setTimeout(() => {
+            const input = document.getElementById('chatbot-message-input');
+            if (input) input.focus();
+        }, 300);
     }
+}
+
+function closeChatbot() {
+    const box = document.getElementById('chatbotBox');
+    if (box) box.classList.remove('visible');
 }
 
 function initializeChatbot() {
