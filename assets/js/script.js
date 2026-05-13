@@ -65,7 +65,8 @@ const properties = [
         baths: 2,
         status: 'available',
         description: 'Modern family home with updated finishes',
-        category: 'rentals'
+        category: 'rentals',
+        image: 'assets/images/properties/oakwood.jpeg'
     },
     {
         id: 2,
@@ -74,7 +75,8 @@ const properties = [
         baths: 1.5,
         status: 'coming',
         description: 'Contemporary urban living with premium amenities',
-        category: 'rentals'
+        category: 'rentals',
+        image: 'assets/images/properties/maple.jpeg'
     },
     {
         id: 3,
@@ -83,7 +85,8 @@ const properties = [
         baths: 2.5,
         status: 'available',
         description: 'Spacious home in established neighborhood',
-        category: 'rentals'
+        category: 'rentals',
+        image: 'assets/images/properties/riverside.jpeg'
     },
     {
         id: 4,
@@ -92,7 +95,8 @@ const properties = [
         baths: 1,
         status: 'available',
         description: 'Cozy home with charming details',
-        category: 'rentals'
+        category: 'rentals',
+        image: 'assets/images/properties/cedar.jpeg'
     },
     {
         id: 5,
@@ -101,7 +105,8 @@ const properties = [
         baths: 1,
         status: 'coming',
         description: 'Compact efficiency with modern amenities',
-        category: 'rentals'
+        category: 'rentals',
+        image: 'assets/images/properties/pine.jpeg'
     }
 ];
 
@@ -119,7 +124,7 @@ function renderProperties(filter = 'all') {
 
     grid.innerHTML = filtered.map(prop => `
         <div class="property-card">
-            <div class="property-image"></div>
+            <div class="property-image" style="background-image: url('${prop.image}'); background-size: cover; background-position: center;"></div>
             <div class="property-info">
                 <span class="property-status ${prop.status === 'available' ? 'status-available' : 'status-coming'}">
                     ${prop.status === 'available' ? 'Available' : 'Coming Soon'}
@@ -141,14 +146,14 @@ function filterProperties(filter) {
 
 // ===== GALLERY DATA =====
 const galleryItems = [
-    { id: 1, category: 'rentals', title: 'Living Room' },
-    { id: 2, category: 'renovations', title: 'Kitchen Renovation' },
-    { id: 3, category: 'interiors', title: 'Bedroom' },
-    { id: 4, category: 'exteriors', title: 'Facade' },
-    { id: 5, category: 'rentals', title: 'Dining Area' },
-    { id: 6, category: 'renovations', title: 'Bathroom Upgrade' },
-    { id: 7, category: 'interiors', title: 'Home Office' },
-    { id: 8, category: 'exteriors', title: 'Landscaping' }
+    { id: 1, category: 'rentals', title: 'Living Room', image: 'assets/images/gallery/living-room.jpeg' },
+    { id: 2, category: 'renovations', title: 'Kitchen Renovation', image: 'assets/images/gallery/kitchen-reno.jpeg' },
+    { id: 3, category: 'interiors', title: 'Bedroom', image: 'assets/images/gallery/bedroom.jpeg' },
+    { id: 4, category: 'exteriors', title: 'Facade', image: 'assets/images/gallery/facade.jpeg' },
+    { id: 5, category: 'rentals', title: 'Dining Area', image: 'assets/images/gallery/dining-area.jpeg' },
+    { id: 6, category: 'renovations', title: 'Bathroom Upgrade', image: 'assets/images/gallery/IMG_9798.jpeg' },
+    { id: 7, category: 'interiors', title: 'Home Office', image: 'assets/images/gallery/IMG_9794.jpeg' },
+    { id: 8, category: 'exteriors', title: 'Landscaping', image: 'assets/images/gallery/IMG_9788.jpeg' }
 ];
 
 function renderGallery(filter = 'all') {
@@ -162,19 +167,11 @@ function renderGallery(filter = 'all') {
     }
 
     grid.innerHTML = filtered.map((item, idx) => {
-        const colors = [
-            'linear-gradient(135deg, #E8E5DD 0%, #D4CEC0 100%)',
-            'linear-gradient(135deg, #D4CEC0 0%, #C0B8AC 100%)',
-            'linear-gradient(135deg, #B5986A 0%, #8A6F47 100%)',
-            'linear-gradient(135deg, #C0B8AC 0%, #A89A8A 100%)',
-            'linear-gradient(135deg, #8A6F47 0%, #6B5636 100%)',
-            'linear-gradient(135deg, #A89A8A 0%, #8A7A6B 100%)'
-        ];
-        const color = colors[idx % colors.length];
-
         return `
             <div style="
-                background: ${color};
+                background-image: url('${item.image}');
+                background-size: cover;
+                background-position: center;
                 height: 300px;
                 border-radius: 12px;
                 overflow: hidden;
@@ -183,7 +180,7 @@ function renderGallery(filter = 'all') {
             "
             onmouseover="this.style.transform='scale(1.02)'"
             onmouseout="this.style.transform='scale(1)'">
-                <div style="padding: var(--space-lg); color: white; height: 100%; display: flex; align-items: flex-end;">
+                <div style="padding: var(--space-lg); color: white; height: 100%; display: flex; align-items: flex-end; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);">
                     <h3 style="margin: 0;">${item.title}</h3>
                 </div>
             </div>
