@@ -30,20 +30,22 @@ let visitorProfile = null;
 function selectProfile(profile) {
     visitorProfile = profile;
     closeProfiler();
-    // Customize homepage based on profile
-    customizeForProfile(profile);
+
+    if (profile === 'rental') {
+        showPage('rentals');
+    } else if (profile === 'renovation') {
+        showPage('renovations');
+    } else if (profile === 'owner') {
+        showPage('contact');
+    } else if (profile === 'explore') {
+        showPage('gallery');
+    }
 }
 
 function closeProfiler() {
     const profiler = document.getElementById('visitorProfiler');
     profiler.classList.add('hidden');
     localStorage.setItem('visitorProfileShown', 'true');
-}
-
-function customizeForProfile(profile) {
-    // This would normally reshape the homepage content
-    // For now, just log the preference
-    console.log('Visitor profile:', profile);
 }
 
 // Show profiler only once per session

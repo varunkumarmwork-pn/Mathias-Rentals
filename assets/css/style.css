@@ -159,8 +159,9 @@ nav {
     z-index: 100;
     background: var(--bg-primary);
     backdrop-filter: blur(8px);
-    background-color: rgba(250, 250, 248, 0.95);
-    border-bottom: 1px solid var(--border);
+    background-color: rgba(250, 250, 248, 0.98);
+    border-bottom: 2px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .nav-container {
@@ -174,17 +175,23 @@ nav {
 
 .nav-logo {
     font-family: 'DM Serif Display', serif;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
     color: var(--text-primary);
     cursor: pointer;
     flex-shrink: 0;
+    letter-spacing: -0.5px;
+    transition: color 0.2s ease;
+}
+
+.nav-logo:hover {
+    color: var(--accent);
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--space-lg);
+    gap: 32px;
     flex: 1;
     justify-content: center;
     list-style: none;
@@ -193,16 +200,35 @@ nav {
 .nav-links a {
     color: var(--text-primary);
     font-weight: 500;
-    font-size: 14px;
+    font-size: 15px;
     cursor: pointer;
-    padding: 8px 0;
-    border-bottom: 2px solid transparent;
+    padding: 8px 12px;
+    border-radius: 6px;
     transition: all 0.2s ease;
+    position: relative;
 }
 
 .nav-links a:hover {
     color: var(--accent);
-    border-bottom-color: var(--accent);
+    background: rgba(181, 152, 106, 0.08);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.2s ease;
+}
+
+.nav-links a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .nav-cta {
@@ -260,16 +286,24 @@ nav {
 
 .modal {
     background: white;
-    border-radius: 16px;
+    border-radius: 20px;
     padding: var(--space-xl);
-    max-width: 600px;
+    max-width: 700px;
     width: 90%;
     text-align: center;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     animation: slideUp 0.4s ease;
+    border: 1px solid rgba(181, 152, 106, 0.1);
 }
 
 .modal h2 {
+    margin-bottom: var(--space-md);
+    font-size: 36px;
+    color: var(--text-primary);
+}
+
+.modal > p {
+    font-size: 16px;
     margin-bottom: var(--space-lg);
 }
 
@@ -281,11 +315,26 @@ nav {
 }
 
 .modal-buttons button {
-    padding: 16px var(--space-md);
+    padding: 18px var(--space-lg);
     text-align: center;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.modal-buttons .btn-primary {
+    box-shadow: 0 4px 12px rgba(181, 152, 106, 0.3);
+}
+
+.modal-buttons .btn-primary:hover {
+    box-shadow: 0 6px 20px rgba(181, 152, 106, 0.4);
+}
+
+.modal-buttons .btn-secondary:hover {
+    background: var(--accent);
+    color: white;
 }
 
 @keyframes slideUp {
@@ -964,8 +1013,8 @@ footer {
 
 .step {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     flex: 1;
     position: relative;
 }
@@ -981,15 +1030,20 @@ footer {
     justify-content: center;
     font-weight: 700;
     z-index: 2;
+    margin-bottom: var(--space-md);
+    flex-shrink: 0;
 }
 
 .step-label {
-    margin-left: var(--space-md);
-    text-align: left;
+    text-align: center;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .step-label h4 {
-    margin: 0;
+    margin: 0 0 var(--space-xs);
     font-size: 14px;
     font-weight: 700;
     color: var(--text-primary);
@@ -1004,8 +1058,9 @@ footer {
 .step::after {
     content: '';
     position: absolute;
-    left: 75px;
-    width: 100%;
+    top: 25px;
+    left: 50%;
+    width: calc(100% - 25px);
     height: 2px;
     background: var(--accent);
     z-index: 1;
@@ -1017,8 +1072,10 @@ footer {
 
 .process-stepper {
     display: flex;
-    gap: var(--space-lg);
+    gap: 0;
     margin-top: var(--space-xl);
+    align-items: flex-start;
+    position: relative;
 }
 
 .service-selector {
